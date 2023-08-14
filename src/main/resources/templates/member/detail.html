@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout/baseLayout}"
+>
+<th:block layout:fragment="title">
+  <title>memberDetail</title>
+</th:block>
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/memberDetail.css}">
+</th:block>
+<th:block layout:fragment="javascript">
+  <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>-->
+  <script th:src="@{/js/detail.js}" defer></script>
+</th:block>
+<th:block layout:fragment="container">
+  <div class="container">
+    <div class="detail">
+      <div class="detail-con">
+        <div class="detail-form">
+          <h1 class="title"><span th:text="${member.name}"></span>님 상세보기</h1>
+          <ul>
+            <li>
+              <label th:for="id">아이디</label>
+              <input type="text" name="id" th:value="${member.id}" id="id" readonly>
+            </li>
+            <input type="hidden" name="pw" th:value="${member.pw}" id="pw" readonly>
+            <li>
+              <label th:for="email">이메일</label>
+              <input type="text" name="email" th:value="${member.email}"  id="email" readonly>
+            </li>
+            <li>
+              <label th:for="name">이름</label>
+              <input type="text" name="name" th:value="${member.name}"  id="name" readonly>
+            </li>
+            <li>
+              <label th:for="nickname">닉네임</label>
+              <input type="text" name="nickname" th:value="${member.nickname}" id="nickname" readonly>
+            </li>
+            <li>
+              <label th:for="phone">휴대전화번호</label>
+              <input type="text" name="phone" th:value="${member.phone}" id="phone" readonly>
+            </li>
+            <li>
+              <label th:for="birth">생년월일</label>
+              <input type="text" name="birth" th:value="${member.birth}" id="birth" readonly>
+            </li>
+            <li>
+              <label th:for="address">주소</label>
+              <input type="text" name="address" th:value="${member.address}" id="address" readonly>
+            </li>
+            <li>
+              <label th:for="role">권한</label>
+              <th:block sec:authorize="hasAnyRole('ADMIN')">
+              <input type="text" name="role" th:value="${member.role}" class="role">
+              </th:block>
+              <th:block sec:authorize="hasAnyRole('MEMBER', 'SELLER')">
+                <input type="text" name="role" th:value="${member.role}" class="role" readonly>
+              </th:block>
+            </li>
+            <li>
+              <label th:for="createTime">가입일</label>
+              <input type="text" name="createTime" th:value="${#temporals.format(member.createTime, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+            </li>
+            <li class="show">
+              <a th:href="@{/member/update}">수정</a>
+              <a th:href="@{/member/delete}">삭제</a>
+<!--              <a href="#" id="updateBtn">수정</a>-->
+<!--              <a href="#" id="deleteBtn">삭제</a>-->
+              <a th:href="@{/}">처음으로</a>
+              <th:block sec:authorize="hasAnyRole('ADMIN')">
+                <a th:href="@{/member/memberList}">목록</a>
+              </th:block>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<th:block layout:fragment="title">
+    <title>로그인</title>
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</th:block>
+<th:block layout:fragment="javascript">
+    <script th:src="@{/js/login}"></script>
+</th:block>
+<th:block layout:fragment="container">
+    <div class="container">
+        <div class="login">
+            <div class="login-con">
+                <div class="login-form">
+                    <h1>Sign In</h1>
+                    <form th:action="@{/member/login}" method="post" >
+                        <ul>
+                            <li>
+                                <label for="email">이메일</label>
+                                <input type="email"  name="email" id="email" placeholder="이메일 입력">
+                            </li>
+                            <li>
+                                <label for="pw">비밀번호</label>
+                                <input type="password" name="pw" id="pw" placeholder="비밀번호 입력">
+                            </li>
+                            <li>
+                                <input type="submit" value="로그인">
+                            </li>
+                            <li class="sns">
+                                <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.jpg}" alt="google"></a>
+                                <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.jpg}" alt="naver"></a>
+                                <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.jpg}" alt="kakao"></a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

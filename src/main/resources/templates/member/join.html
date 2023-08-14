@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>join</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+<div class="join">
+    <form th:action="@{/member/join}" method="post" th:object="${memberDto}">
+        <ul>
+            <li>
+                <label th:for="email">이메일</label>
+                <input type="email" th:field="*{email}" placeholder="이메일 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></p>
+            <li>
+                <label th:for="pw">비밀번호</label>
+                <input type="password" th:field="*{pw}" placeholder="비밀번호 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="error"></p>
+            <li>
+                <label th:for="name">이름</label>
+                <input type="text" th:field="*{name}" placeholder="이름 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
+            <li>
+                <label th:for="nickname">닉네임</label>
+                <input type="text" th:field="*{nickname}" placeholder="닉네임 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="error"></p>
+            <li>
+                <label th:for="phone">휴대전화</label>
+                <input type="text" th:field="*{phone}" placeholder="휴대전화 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"></p>
+            <li>
+                <label th:for="birth">생년월일</label>
+                <input type="text" th:field="*{birth}" placeholder="생년월일 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="error"></p>
+            <li>
+                <label th:for="address">주소</label>
+                <input type="text" th:field="*{address}" placeholder="주소 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error"></p>
+            <li>
+                <input type="submit" value="회원가입">
+            </li>
+        </ul>
+    </form>
+</div>
+</body>
+</html>
