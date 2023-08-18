@@ -15,11 +15,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private MemberRepository memberRepository;
 
+//    @Override
+//    public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException {
+//
+//        MemberEntity memberEntity=memberRepository.findByEmail(memberEmail).orElseThrow(()->{
+//           throw new UsernameNotFoundException("이메일이 없습니다");
+//        });
+//
+//        return new MyUserDetails(memberEntity);
+//    }
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException {
 
-        MemberEntity memberEntity=memberRepository.findByEmail(email).orElseThrow(()->{
-           throw new UsernameNotFoundException("이메일이 없습니다");
+        MemberEntity memberEntity= memberRepository.findByMemberEmail(memberEmail).orElseThrow(()->{
+            throw new UsernameNotFoundException("이메일이 없습니다");
         });
 
         return new MyUserDetails(memberEntity);

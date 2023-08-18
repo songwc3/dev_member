@@ -47,31 +47,33 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
             System.out.println(key + ": " + attributes.get(key));
         }
 
-        String email = "";
-        String password = "dlfwhghkdlxld";
-        String name = "";
-        String nickName = "";
-        String phone="";
-        String birth="";
-        String address = "";
+        String memberEmail = "";
+        String memberPassword = "dlfwhghkdlxld";
+        String memberName = "";
+        String memberNickName = "";
+        String memberPhone="";
+        String memberBirth="";
+        String memberAddress = "";
 
 
         if (registrationId.equals("google")) {
             System.out.println("google 로그인");
 
-            email = (String) attributes.get("email");
-            nickName = (String) attributes.get("nickname");
+            memberEmail = (String) attributes.get("email");
+            memberName = (String) attributes.get("name");
 
         } else if (registrationId.equals("naver")) {
             System.out.println("naver 로그인");
 
             Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
-            email = (String) response.get("email");
-            name= (String) response.get("name");
-            nickName = (String) response.get("nickname");
-            phone=(String) response.get("mobile");
-            birth=(String) response.get("birthday");
+            memberEmail = (String) response.get("email");
+            memberName= (String) response.get("name");
+            memberNickName = (String) response.get("nickname");
+            memberPhone=(String) response.get("mobile");
+            memberBirth=(String) response.get("birthday");
+//            birth=(String) response.get("profile_image"); // 프로필 URL
+//            birthYear=(String)response.get("birthyear");
 
             System.out.println((String) response.get("id"));
             System.out.println((String) response.get("email"));
@@ -83,29 +85,32 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
             Map<String, Object> response = (Map<String, Object>) attributes.get("kakao_account");
             System.out.println("response : " + response);
             System.out.println("response - email : " + response.get("email"));
+            System.out.println("response - birth : " + response.get("birthday"));
 
             Map<String, Object> profile = (Map<String, Object>) response.get("profile");
-            System.out.println("response - nickname : " + response.get("nickname"));
+            System.out.println("response - nickname : " + profile.get("nickname"));
 
-            email = (String) response.get("email");
-            nickName = (String) response.get("nickname");
-            phone=(String) response.get("phone_number");
-            birth=(String) response.get("birthyear"+"birthday");
+            memberEmail = (String) response.get("email");
+            memberNickName = (String) profile.get("nickname");
+            memberBirth=(String) response.get("birthday");
+//            name=(String) profile.get("name");
+//            phone=(String) profile.get("phone_number");
+//          birthYear=(String)profile.get("birthyear");
         }
 
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByEmail(email);
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(memberEmail);
         if (optionalMemberEntity.isPresent()) {
 //            OAuthUser → DB 비교, 있으면
             return new MyUserDetails(optionalMemberEntity.get());
         }
         MemberEntity memberEntity = memberRepository.save(MemberEntity.builder()
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .name(name)
-                .nickName(nickName)
-                .phone(phone)
-                .birth(birth)
-                .address(address)
+                .memberEmail(memberEmail)
+                .memberPassword(passwordEncoder.encode(memberPassword))
+                .memberName(memberName)
+                .memberNickName(memberNickName)
+                .memberPhone(memberPhone)
+                .memberBirth(memberBirth)
+                .memberAddress(memberAddress)
                 .role(Role.MEMBER)
                 .build());
 

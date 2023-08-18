@@ -53,17 +53,17 @@ public class MyUserDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getName() {
-        return memberEntity.getEmail();
+        return memberEntity.getMemberEmail();
     }
 
     @Override
     public String getPassword() {
-        return memberEntity.getPw();
+        return memberEntity.getMemberPassword();
     }
 
     @Override
     public String getUsername() {
-        return memberEntity.getEmail();
+        return memberEntity.getMemberEmail();
     }
 
     @Override

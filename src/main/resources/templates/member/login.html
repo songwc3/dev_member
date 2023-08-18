@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <th:block layout:fragment="title">
     <title>로그인</title>
 </th:block>
@@ -11,6 +11,7 @@
 <th:block layout:fragment="javascript">
     <script th:src="@{/js/login}"></script>
 </th:block>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 <th:block layout:fragment="container">
     <div class="container">
         <div class="login">
@@ -20,12 +21,12 @@
                     <form th:action="@{/member/login}" method="post" >
                         <ul>
                             <li>
-                                <label for="email">이메일</label>
-                                <input type="email"  name="email" id="email" placeholder="이메일 입력">
+                                <label for="memberEmail">이메일</label>
+                                <input type="email"  name="memberEmail" id="memberEmail" placeholder="이메일 입력">
                             </li>
                             <li>
-                                <label for="pw">비밀번호</label>
-                                <input type="password" name="pw" id="pw" placeholder="비밀번호 입력">
+                                <label for="memberPassword">비밀번호</label>
+                                <input type="password" name="memberPassword" id="memberPassword" placeholder="비밀번호 입력">
                             </li>
                             <li>
                                 <input type="submit" value="로그인">

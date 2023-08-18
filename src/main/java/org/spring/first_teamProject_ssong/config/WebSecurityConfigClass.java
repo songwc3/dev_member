@@ -33,7 +33,7 @@ public class WebSecurityConfigClass {
                 // ADMIN
                 .antMatchers("/admin/**", "/member/memberList").hasAnyRole("ADMIN")
                 // SELLER, ADMIN
-                .antMatchers("/shop/**").hasAnyRole("SELLER", "ADMIN");
+                .antMatchers("/shop/manage").hasAnyRole("SELLER", "ADMIN");
         // MEMBER, ADMIN
 //                .antMatchers("/member/detail/**", "/member/update/**", "/member/delete/**", "/board/**").hasAnyRole("MEMBER", "SELLER", "ADMIN")
         // 권한 이외의 페이지는 모두 허용
@@ -42,8 +42,8 @@ public class WebSecurityConfigClass {
         // 로그인 설정
         http.formLogin()
                 .loginPage("/member/login") // 로그인 페이지로 이동
-                .usernameParameter("email")
-                .passwordParameter("password")
+                .usernameParameter("memberEmail")
+                .passwordParameter("memberPassword")
                 .loginProcessingUrl("/member/login") // form에서 post방식으로 설정하는 URL
                 .defaultSuccessUrl("/")
                 .failureUrl("/member/login")

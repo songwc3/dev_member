@@ -5,24 +5,27 @@
       layout:decorate="~{fragments/layout/baseLayout}">
 <div class="header" th:fragment="headerFragment">
     <a th:href="@{/}">처음으로</a>
+    <a th:href="@{/shop}">상품</a>
     <th:block sec:authorize="isAnonymous()">
         <a th:href="@{/member/join}">회원가입</a>
         <a th:href="@{/member/login}">로그인</a>
     </th:block>
     <th:block sec:authorize="isAuthenticated()">
+        <a th:href="@{/member/detail/{memberId}(memberId=${#authentication.principal.memberEntity.memberId})}">마이페이지</a>
         <a th:href="@{/member/logout}">로그아웃</a>
+        <span sec:authentication="name" class="data1 span"></span>님 <!-- User username get -->
     </th:block>
     <th:block sec:authorize="hasAnyRole('ADMIN')">
         <a th:href="@{/member/memberList}">회원목록</a>
     </th:block>
-    <th:block sec:authorize="hasAnyRole('ADMIN', 'MEMBER', 'SELLER')">
-        <a th:href="@{/member/detail/{id}(id=${#authentication.principal.memberEntity.id})}">본인정보</a>
-    </th:block>
+<!--    <th:block sec:authorize="hasAnyRole('ADMIN', 'MEMBER', 'SELLER')">-->
+<!--        <a th:href="@{/member/detail/{id}(id=${#authentication.principal.memberEntity.id})}">본인정보</a>-->
+<!--    </th:block>-->
     <th:block sec:authorize="hasAnyRole('SELLER', 'ADMIN')">
-        <a th:href="@{/shop}">쇼핑몰페이지</a>
+        <a th:href="@{/shop/Manage}">상품 관리</a>
     </th:block>
     <th:block sec:authorize="hasAnyRole('ADMIN')">
-    <a th:href="@{/admin}">관리자페이지</a>
+    <a th:href="@{/admin}">관리자 페이지</a>
     </th:block>
 </div>
 </html>

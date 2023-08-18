@@ -5,6 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>join</title>
+    <script th:src="@{/js/checkEmailNickName.js}" defer="defer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div th:replace="~{fragments/header :: headerFragment}"></div>
@@ -12,40 +14,58 @@
     <form th:action="@{/member/join}" method="post" th:object="${memberDto}">
         <ul>
             <li>
-                <label th:for="email">이메일</label>
-                <input type="email" th:field="*{email}" placeholder="이메일 입력">
+                <label th:for="memberEmail">이메일</label>
+                <input type="email" th:field="*{memberEmail}" placeholder="이메일 입력">
             </li>
-            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></p>
+            <p th:if="${#fields.hasErrors('memberEmail')}" th:errors="*{memberEmail}" class="error"></p>
+            <!-- 이메일 중복 확인 버튼 -->
             <li>
-                <label th:for="pw">비밀번호</label>
-                <input type="password" th:field="*{pw}" placeholder="비밀번호 입력">
+                <button type="button" id="emailCheckButton">이메일 중복 확인</button>
             </li>
-            <p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="error"></p>
+            <!-- 중복 확인 결과 메시지 영역 -->
             <li>
-                <label th:for="name">이름</label>
-                <input type="text" th:field="*{name}" placeholder="이름 입력">
+                <d id="emailAvailable" class="valid-feedback" style="display: none;"></d>
+                <d id="emailNotAvailable" class="invalid-feedback" style="display: none;"></d>
             </li>
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
             <li>
-                <label th:for="nickname">닉네임</label>
-                <input type="text" th:field="*{nickname}" placeholder="닉네임 입력">
+                <label th:for="memberPassword">비밀번호</label>
+                <input type="password" th:field="*{memberPassword}" placeholder="비밀번호 입력">
             </li>
-            <p th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="error"></p>
+            <p th:if="${#fields.hasErrors('memberPassword')}" th:errors="*{memberPassword}" class="error"></p>
             <li>
-                <label th:for="phone">휴대전화</label>
-                <input type="text" th:field="*{phone}" placeholder="휴대전화 입력">
+                <label th:for="memberName">이름</label>
+                <input type="text" th:field="*{memberName}" placeholder="이름 입력">
             </li>
-            <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"></p>
+            <p th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}" class="error"></p>
             <li>
-                <label th:for="birth">생년월일</label>
-                <input type="text" th:field="*{birth}" placeholder="생년월일 입력">
+                <label th:for="memberNickName">닉네임</label>
+                <input type="text" th:field="*{memberNickName}" placeholder="닉네임 입력">
             </li>
-            <p th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="error"></p>
+            <p th:if="${#fields.hasErrors('memberNickName')}" th:errors="*{memberNickName}" class="error"></p>
+            <!-- 닉네임 중복 확인 버튼 -->
             <li>
-                <label th:for="address">주소</label>
-                <input type="text" th:field="*{address}" placeholder="주소 입력">
+                <button type="button" id="nickNameCheckButton">닉네임 중복 확인</button>
             </li>
-            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error"></p>
+            <!-- 중복 확인 결과 메시지 영역 -->
+            <li>
+                <d id="nickNameAvailable" class="valid-feedback" style="display: none;"></d>
+                <d id="nickNameNotAvailable" class="invalid-feedback" style="display: none;"></d>
+            </li>
+            <li>
+                <label th:for="memberPhone">휴대전화</label>
+                <input type="text" th:field="*{memberPhone}" placeholder="휴대전화 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('memberPhone')}" th:errors="*{memberPhone}" class="error"></p>
+            <li>
+                <label th:for="memberBirth">생년월일</label>
+                <input type="text" th:field="*{memberBirth}" placeholder="생년월일 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('memberBirth')}" th:errors="*{memberBirth}" class="error"></p>
+            <li>
+                <label th:for="memberAddress">주소</label>
+                <input type="text" th:field="*{memberAddress}" placeholder="주소 입력">
+            </li>
+            <p th:if="${#fields.hasErrors('memberAddress')}" th:errors="*{memberAddress}" class="error"></p>
             <li>
                 <input type="submit" value="회원가입">
             </li>

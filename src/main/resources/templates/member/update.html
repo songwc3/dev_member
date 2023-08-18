@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>update</title>
+  <script th:src="@{/js/updateValid.js}" defer="defer"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+<div class="update">
+  <h1 class="title"><span th:text="${member.memberName}" ></span>님 정보 수정</h1>
+  <form th:action="@{/member/update}" method="post" onsubmit="return onSubmitForm();">
+    아이디 : <input type="text" name="memberId" th:value="${member.memberId}" id="memberId" readonly> <br>
+    이메일 : <input type="email" name="memberEmail" th:value="${member.memberEmail}" id="memberEmail" readonly> <br>
+    비밀번호 : <input type="password" name="memberPassword" th:value="${member.memberPassword}" id="memberPassword" th:data-original-value="${member.memberPassword}" readonly> <br>
+    이름 : <input type="text" name="memberName" th:value="${member.memberName}" required="required" placeholder="이름을 입력하세요"> <br> <!-- required 추가 시 값 꼭 입력해야함 -->
+    닉네임 : <input type="text" name="memberNickName" th:value="${member.memberNickName}" required="required" placeholder="닉네임을 입력하세요" th:data-original-value="${member.memberNickName}"> <br> <!-- 정보 수정 시 nickName값 비교 위해 사용 -->
+    휴대전화 : <input type="text" name="memberPhone" th:value="${member.memberPhone}" required="required" placeholder="휴대전화번호를 입력하세요"> <br>
+    생년월일 : <input type="text" name="memberBirth" th:value="${member.memberBirth}" required="required" placeholder="생년월일을 입력하세요"> <br>
+    주소 : <input type="text" name="memberAddress" th:value="${member.memberAddress}" required="required" placeholder="주소를 입력하세요"> <br>
+    권한 : <input type="text" name="role" th:value="${member.role}" readonly> <br>
+    <input type="submit" value="수정실행">
+  </form>
+  <a href="javascript:history.back()">수정취소</a>
+  <a th:href="@{/password/change/{memberId}(memberId=${member.memberId})}">비밀번호 변경</a>
+</div>
+</body>
+</html>
